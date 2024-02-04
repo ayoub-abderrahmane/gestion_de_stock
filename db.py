@@ -31,7 +31,7 @@ class DB:
         self.cursor.execute(query ,params or ())
         result = self.cursor.fetchall()
         self.disconnect()
-        print(result)
+        return result
     
     def checkStock(self):
         queries = ("""
@@ -45,4 +45,10 @@ class DB:
             if quantity == quantité[0]:
                 print("Produit en rupture de stock")
             else: 
-                print("Produit en stock")  
+                print("Produit en stock") 
+
+    def checkProduit(self):
+        queries = "select * from product"
+        self.connect()
+        select = self.cursor.execute(queries)
+        return select

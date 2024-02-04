@@ -3,7 +3,9 @@ from db import DB
 
 class Produit():
     def __init__(self):
-        pass
+        self.select = ("""
+            SELECT * FROM product
+            """)
 
     def createProduit(self ,name ,description ,price ,quantity ,id_category):
         queries = ("""
@@ -15,10 +17,9 @@ class Produit():
         database.executeQuery(queries ,params)
     
     def readProduit(self):
-        queries = ("""
-            SELECT * FROM product
-            """)
-        database.fetch(queries)
+        queries = ("SELECT * FROM product ")
+        showData = database.fetch(queries)
+        return showData
     
     def updateProduit(self ,name ,description ,price ,quantity ,id_category ,id):
         queries = ("""
@@ -59,6 +60,6 @@ produit = Produit()
 # produit.deleteProduit(14)
 # produit.updateProduit("Thé" ,"Boisson à base d'eau et de plante,bonne pour la santé" ,2 ,0 ,3 ,9)
 # produit.changeCategory(3 ,9)
-produit.readProduit()
+# print (produit.readProduit())
 
 # database.checkStock()
