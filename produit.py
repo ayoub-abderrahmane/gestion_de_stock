@@ -20,14 +20,15 @@ class Produit():
         queries = ("SELECT * FROM product ")
         showData = database.fetch(queries)
         return showData
-    
-    def updateProduit(self ,name ,description ,price ,quantity ,id_category ,id):
+
+
+    def updateProduit(self ,name ,description ,price ,quantity ,id_category ,test ,id):
         queries = ("""
             UPDATE product
-            SET name = %s ,description = %s ,price = %s ,quantity = %s ,id_category = %s
+            SET name = %s ,description = %s ,price = %s ,quantity = %s ,id_category = %s ,id = %s
             WHERE id = %s   
             """)
-        params = (name ,description ,price ,quantity ,id_category ,id)
+        params = (name ,description ,price ,quantity ,id_category ,test ,id)
         database.executeQuery(queries ,params)
     
     def deleteProduit(self ,id):
@@ -56,9 +57,9 @@ class Produit():
 
 database = DB("localhost" ,"root" ,"root" ,"store")
 produit = Produit()
-# produit.createProduit("Thé" ,"Boisson à base d'eau et de plante,bonne pour la santé" ,2 ,2400 ,3)
-# produit.deleteProduit(14)
-# produit.updateProduit("Thé" ,"Boisson à base d'eau et de plante,bonne pour la santé" ,2 ,0 ,3 ,9)
+# produit.createProduit(("LEJUS") ,"boisson fruit" ,600 ,2400 ,3)
+# produit.deleteProduit(16)
+# produit.updateProduit("Ordinateur" ,"Machine capable de réaliser des calculs puissant" ,600 ,2400 ,1 ,12 ,27)
 # produit.changeCategory(3 ,9)
 # print (produit.readProduit())
 
