@@ -22,13 +22,13 @@ class Produit():
         return showData
 
 
-    def updateProduit(self ,name ,description ,price ,quantity ,id_category ,test ,id):
+    def updateProduit(self ,name ,description ,price ,quantity ,id_category ,id):
         queries = ("""
             UPDATE product
-            SET name = %s ,description = %s ,price = %s ,quantity = %s ,id_category = %s ,id = %s
+            SET name = %s ,description = %s ,price = %s ,quantity = %s ,id_category = %s
             WHERE id = %s   
             """)
-        params = (name ,description ,price ,quantity ,id_category ,test ,id)
+        params = (name ,description ,price ,quantity ,id_category ,id)
         database.executeQuery(queries ,params)
     
     def deleteProduit(self ,id):

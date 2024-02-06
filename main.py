@@ -7,7 +7,8 @@ from produit import *
 surf = Tk()
 surf.geometry("800x600+100+10")
 
-params = []
+params_add = []
+params_edit = []
 
 style = ttk.Style()
 style.theme_use('clam')
@@ -60,24 +61,49 @@ def delete():
         produit.deleteProduit(item_id)
 
 
-def edit():
-   # Get selected item to Edit
-   selected_item = tree.selection()[0]
-   tree.item(selected_item, text="blub", values=("foo", "bar"))
-
-
-def open_popup():
+def open_popup_add():
+    #Permet de créer la fenetre pop up
     top = Toplevel(surf)
     top.geometry("300x250")
     top.title("Ajouter un produit")
+    #Permet d'afficher les textes
     Label(top, text= "Ajouter un produit", font=('Mistral 18')).place(x=60,y=30)
     Label(top, text= "(nom ,description ,prix ,quantité ,id_category)", font=('Mistral 10')).place(x=20,y=60)
+
+    # Fonction appeler lorsqu'on clique sur le bouton valider pour recuperer les input et créer le produit
+    def verify():
+            data = user_input.get()
+            entry.delete(0, END)
+            params_add.append(data)
+            produit.createProduit(params_add[0],params_add[1],params_add[2],params_add[3],params_add[4])
+            for i in tree.get_children():
+                tree.delete(i)
+            for row in produit.readProduit():
+                tree.insert('' ,END ,values = row)
+
+    #Créer et place les différents boutons
+    user_input = StringVar(top)
+    entry = Entry(top, textvariable=user_input)
+    valider = Button(top ,text="Valider" ,command=verify)
+    valider.pack()
+    valider.place(x=130,y=130)
+    entry.pack()
+    entry.place(x=90 ,y=80)
+    top.mainloop()
+
+
+def open_popup_edit():
+    top = Toplevel(surf)
+    top.geometry("300x250")
+    top.title("Modifier un produit")
+    Label(top, text= "Modifier un produit", font=('Mistral 18')).place(x=60,y=30)
+    Label(top, text= "(nom ,description ,prix ,quantité ,id_category ,id)", font=('Mistral 9')).place(x=20,y=60)
 
     def verify():
             data = user_input.get()
             entry.delete(0, END)
-            params.append(data)
-            produit.createProduit(params[0],params[1],params[2],params[3],params[4])
+            params_edit.append(data)
+            produit.updateProduit(params_edit[0],params_edit[1],params_edit[2],params_edit[3],params_edit[4],params_edit[5])
             for i in tree.get_children():
                 tree.delete(i)
             for row in produit.readProduit():
@@ -91,7 +117,9 @@ def open_popup():
     entry.pack()
     entry.place(x=90 ,y=80)
     top.mainloop()
-    
+
+
+
 
 
 
@@ -99,10 +127,10 @@ def open_popup():
 getTextArea = Button(surf ,text="Supprimer" ,command=delete)
 getTextArea.pack()
 getTextArea.place(x=630 ,y=448)
-edit_btn = Button(surf, text="Modifier", command=edit)
+edit_btn = Button(surf, text="Modifier", command=open_popup_edit)
 edit_btn.pack()
 edit_btn.place(x=560 ,y=448)
-add_btn = Button(surf, text="Ajouter",command=open_popup)
+add_btn = Button(surf, text="Ajouter",command=open_popup_add)
 add_btn.pack()
 add_btn.place(x=500 ,y=448)
 
