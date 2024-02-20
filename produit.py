@@ -1,5 +1,8 @@
 from db import DB
+import os 
+from dotenv  import load_dotenv
 
+load_dotenv()
 
 class Produit():
     def __init__(self):
@@ -55,7 +58,7 @@ class Produit():
 
 
 
-database = DB("localhost" ,"root" ,"root" ,"store")
+database = DB(os.getenv("host") ,os.getenv("user") ,os.getenv("passwd") ,os.getenv("database"))
 produit = Produit()
 # produit.createProduit(("LEJUS") ,"boisson fruit" ,600 ,2400 ,3)
 # produit.deleteProduit(16)
